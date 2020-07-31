@@ -1,0 +1,20 @@
+// Background colors
+
+$bg-white: #fff;
+$bg-black: #000;
+$bg-yellow: #fed700;
+$bg-light-grey: #f9f9f9;
+
+// Text Colors
+
+$text-white: #fff;
+$text-black: #000;
+$text-grey: #555;
+
+// Cross-browser compatibility
+
+
+body {
+    background-color: $bg-white;
+    color: $text-black;
+}
