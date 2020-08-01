@@ -11,5 +11,8 @@
     "url": "https://github.com/IgorCantos/shophero-e-commerce"
   },
   "author": "Igor Santos",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.26.10"
+  }
 }
