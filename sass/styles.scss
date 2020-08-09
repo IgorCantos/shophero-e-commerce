@@ -1,0 +1,279 @@
+// Cross-browser compatibility
+
+// All functions
+
+@function calc-rem($size) {
+    $rem-size: $size / 16px;
+    @return $rem-size * 1rem;
+}
+  
+
+// All @mixins
+
+@mixin font-size($size) {
+    font-size: $size; // Fallback for IE
+    font-size: calc-rem($size);
+}
+
+@mixin text-align($value) {
+    text-align: $value;
+}
+
+@mixin font-weight($weight) {
+    font-weight: $weight;
+}
+
+@mixin width($width, $max-width) {
+    width: $width;
+    max-width: $max-width;
+}
+
+@mixin height($height, $max-height) {
+    height: $height;
+    max-height: $max-height;
+}
+
+@mixin margin($top, $right, $bottom, $left) {
+    margin: $top $right $bottom $left;
+}
+
+@mixin padding($top, $right, $bottom, $left) {
+    padding: $top $right $bottom $left;
+}
+
+@mixin border($width, $style, $color) {
+    border: $width $style $color;
+}
+
+@mixin border-radius($value) {
+    border-radius: $value;
+}
+
+// Grid System
+
+.container {
+    @include width(100%, 1200px);
+    @include padding(0px, 15px, 0px, 15px);
+    @include margin(0px, auto, 0px, auto);
+}
+
+.container-fluid {
+    @include width(100%, null);
+    @include padding(0px, 15px, 0px, 15px);
+    @include margin(0px, auto, 0px, auto);
+}
+
+.flex-row,
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-item {
+    flex: 1;
+    @include padding(10px, 10px, 10px, 10px);
+    @include margin(10px, 10px, 10px, 10px);
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+// Colors
+
+$medium-yellow: #fed700;
+$light-grey: #f9f9f9;
+$medium-grey: #555;
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.bg-light-grey {
+    background-color: $light-grey;
+}
+
+
+// Starting of the main code
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: $light-grey;
+    color: black;  
+    @include font-weight(normal);
+    @include margin(0px, 0px, 0px, 0px);
+    @include padding(0px, 0px, 0px, 0px);
+}
+
+a {
+    color: #0070c9;
+    @include font-weight(bold);
+    text-decoration: none;
+}
+
+figure {
+    @include margin(0px, 0px, 0px, 0px);
+}
+
+.btn-primary {
+    background-color: $medium-yellow;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    @include text-align(center);
+    @include font-weight(bold);
+    @include font-size(16px);
+    @include width(100%, 100px);
+    @include padding(10px, 15px, 10px, 15px);
+    @include border-radius(25px);
+    @include border(0px, null, null);
+}
+
+input[type=number] {
+    background-color: $light-grey;
+    @include border(1px, solid, $medium-yellow);
+    @include border-radius(25px);
+    @include padding(0px, 5px, 0px, 5px);
+    @include margin(0px, 10px, 0px, 0px);
+    @include width(70px, 100%);
+    @include text-align(center);
+    @include font-size(18px);
+}
+
+#banner-section {
+    background: url('../images/banner-carousel/samsung-galaxy-s20.png'), black;
+    background-repeat: no-repeat;
+    background-position: bottom right 15%;
+    @include height(450px, null);
+
+    h1 {
+        @include font-size(32px);
+        @include font-weight(bold);
+        @include margin(auto, auto, 5px, auto);
+        color: white;
+    }
+
+    h2 {
+        @include font-size(22px);
+        @include font-weight(normal);
+        @include margin(0px, auto, 30px, auto);
+        color: white;
+    }
+}
+
+#featured-departments-section {
+    background-color: white;
+    @include padding(25px, 0px, 25px, 0px);
+
+    .product-img {
+        @include padding(0px, 15px, 0px, 15px);
+    }
+}
+
+// Código reutilizável compartilhado entre as seções #most-sold e #departments-nav
+
+.grid-row {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-areas:
+    "item-one item-two item-three"
+    "item-four item-five item-six";
+
+    .grid-row:nth-child(1) { grid-area: item-one; }
+    .grid-row:nth-child(2) { grid-area: item-two; }
+    .grid-row:nth-child(3) { grid-area: item-three; }    
+    .grid-row:nth-child(4) { grid-area: item-four; }    
+    .grid-row:nth-child(5) { grid-area: item-five; }    
+    .grid-row:nth-child(6) { grid-area: item-six; }    
+
+    .grid-item {
+        @include border(1px, solid, #a9a8a8);
+        @include padding(25px, 25px, 25px, 25px);
+        
+        display: grid;
+        grid-template-areas: 
+        "grid-item-img grid-item-info grid-item-info";
+    
+        .grid-item-img { 
+            grid-area: grid-item-img;
+            @include padding(0px, 10px, 0px, 0px);
+            @include width(100%, 100%);
+        }
+    
+        .grid-item-info { 
+            grid-area: grid-item-info;
+        }
+    
+        h3 {
+            @include margin(8px, 0px, 0px, 0px);
+            @include font-weight(bold);
+        }
+    
+        p {
+            @include margin(0px, 0px, 20px, 0px);
+        }
+    }    
+}
+
+// Fim código reutilizável
+
+#most-sold-section {
+    background-color: white;
+    @include padding(25px, 0px, 25px, 0px);
+    @include margin(20px, 0px, 20px, 0px);
+}
+
+#notebooks-section {
+    @extend #most-sold-section ;
+}
+
+#departments-nav nav {
+    a {
+        @include font-weight(normal);
+        @include padding(20px, 13px, 10px, 13px);
+    }
+}
+
+#newsletter-input-section {
+    @extend #most-sold-section ;
+    background-color: $medium-yellow;
+
+    fieldset {
+        @include border(0px, null, null);
+    }
+
+    input {
+        @include margin(0px, 10px, 0px, 0px);
+        @include padding(0px, 15px, 0px, 15px);
+        @include font-size(16px);
+        @include border-radius(25px);
+        @include border(0px, null, null);
+    }
+
+    button {
+        @extend .btn-primary ;
+        background-color: black;
+        text-transform: uppercase;
+    }
+
+}
+
