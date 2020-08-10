@@ -159,6 +159,79 @@ input[type=number] {
     @include font-size(18px);
 }
 
+#cart-sidebar::-webkit-scrollbar {
+    width: 3px;
+}
+
+#cart-sidebar::-webkit-scrollbar-thumb {
+    background-color: $medium-yellow;
+}
+
+#cart-sidebar {
+    display: none;
+    position: fixed;
+    right: 0;
+    background-color: white;
+    @include width(100%, 30%);
+    @include height(100%, 100%);
+    @include padding(10px, 5px, 10px, 5px);
+    overflow: scroll;
+    -webkit-box-shadow: -18px 0px 32px 0px rgba(153,153,153,0.26);
+    -moz-box-shadow: -18px 0px 32px 0px rgba(153,153,153,0.26);
+    box-shadow: -18px 0px 32px 0px rgba(153,153,153,0.26);
+    -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-right 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+    @-webkit-keyframes slide-in-right {
+        0% {
+          -webkit-transform: translateX(1000px);
+                  transform: translateX(1000px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateX(0);
+                  transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slide-in-right {
+        0% {
+          -webkit-transform: translateX(1000px);
+                  transform: translateX(1000px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateX(0);
+                  transform: translateX(0);
+          opacity: 1;
+        }
+    }
+
+    h1 {
+        @include margin(15px, 0px, 10px, 0px);
+        @include text-align(center);
+    }
+
+    .cart-items-list {
+        @include padding(10px, 10px, 10px, 10px);
+
+        .cart-item {
+            display: flex;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            @include padding(15px, 0px, 15px, 0px);
+
+            h3 {
+                @include margin(8px, 0px, 10px, 0px);
+            }
+
+            .btn-primary {
+                background-color: red;
+            }
+        }
+    }
+}
+
 #banner-section {
     background: url('../images/banner-carousel/samsung-galaxy-s20.png'), black;
     background-repeat: no-repeat;
