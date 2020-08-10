@@ -159,6 +159,16 @@ input[type=number] {
     @include font-size(18px);
 }
 
+input[type=search] {
+    background-color: $light-grey;
+    @include border(1px, solid, $medium-yellow);
+    @include border-radius(25px);
+    @include padding(10px, 10px, 10px, 10px);
+    @include margin(0px, 10px, 0px, 0px);
+    @include width(400px, 100%);
+    @include font-size(18px);
+}
+
 #cart-sidebar::-webkit-scrollbar {
     width: 3px;
 }
@@ -171,6 +181,7 @@ input[type=number] {
     display: none;
     position: fixed;
     right: 0;
+    top: 0;
     background-color: white;
     @include width(100%, 30%);
     @include height(100%, 100%);
@@ -212,6 +223,15 @@ input[type=number] {
         @include text-align(center);
     }
 
+    .cart-sidebar-close {
+        float: right;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+        @include margin(-40px, 0px, 0px, 0px);
+        @include font-size(25px);
+    }
+
     .cart-items-list {
         @include padding(10px, 10px, 10px, 10px);
 
@@ -229,6 +249,30 @@ input[type=number] {
                 background-color: red;
             }
         }
+    }
+}
+
+#page-header {
+    background-color: white;
+    @include padding(15px, 15px, 15px, 15px);
+
+    .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .wrapper > div {
+        display: flex;
+        align-items: center;
+    }
+
+    #cart-button {
+        cursor: pointer;
+    }
+
+    .wrapper figure {
+        @include margin(0px, 10px, 0px, 10px);
     }
 }
 

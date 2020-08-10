@@ -8,14 +8,34 @@
 <title>SHOPHERO - A sua super loja online</title>
 </head>
 <body>
-    <header>
-        
+    <header id="page-header">
+        <div class="container">
+            <div class="wrapper">
+                <div>
+                    <figure>
+                        <img src="./images/shophero-logo.png" alt="Logo da Shophero">
+                    </figure>
+                </div>
+                <div>
+                    <input type="search" name="search" id="search" placeholder="Digite aqui para pesquisar um produto...">
+                </div>
+                <div id="cart-button">
+                    <figure>
+                        <img src="./images/cart-icon.png" alt="">
+                    </figure>
+                    <p>R$ 0 - 0 itens</p>
+                </div>
+            </div>
+        </div>
     </header>
 
     <section id="cart-sidebar">
         <div class="container">
             <header>
                 <h1>Meu carrinho</h1>
+                <button type="button" class="cart-sidebar-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </header>
             <div class="cart-items-list">
                 <div class="cart-item">
