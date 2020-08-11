@@ -1,0 +1,129 @@
+// Cross-browser compatibility
+
+// All functions
+
+@function calc-rem($size) {
+    $rem-size: $size / 16px;
+    @return $rem-size * 1rem;
+}
+
+// All @mixins
+
+@mixin font-size($size) {
+    font-size: $size; // Fallback for IE
+    font-size: calc-rem($size);
+}
+
+@mixin text-align($value) {
+    text-align: $value;
+}
+
+@mixin font-weight($weight) {
+    font-weight: $weight;
+}
+
+@mixin width($width, $max-width) {
+    width: $width;
+    max-width: $max-width;
+}
+
+@mixin height($height, $max-height) {
+    height: $height;
+    max-height: $max-height;
+}
+
+@mixin margin($top, $right, $bottom, $left) {
+    margin: $top $right $bottom $left;
+}
+
+@mixin padding($top, $right, $bottom, $left) {
+    padding: $top $right $bottom $left;
+}
+
+@mixin border($width, $style, $color) {
+    border: $width $style $color;
+}
+
+@mixin border-radius($value) {
+    border-radius: $value;
+}
+
+// Colors
+
+$medium-yellow: #fed700;
+$light-grey: #f9f9f9;
+$medium-grey: #555;
+
+// Grid System
+
+.container {
+    @include width(100%, 1200px);
+    @include padding(0px, 15px, 0px, 15px);
+    @include margin(0px, auto, 0px, auto);
+}
+
+.container-fluid {
+    @include width(100%, null);
+    @include padding(0px, 15px, 0px, 15px);
+    @include margin(0px, auto, 0px, auto);
+}
+
+.flex-row {
+    display: block;
+}
+
+.flex-item {
+    flex: 1;
+    background-color: $light-grey;
+    @include padding(25px, 25px, 25px, 25px);
+    @include margin(10px, 10px, 10px, 10px);
+}
+
+.grid-row {
+    display: grid;
+    grid-gap: 15px;
+}
+
+// Document general settings
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+a {
+    color: #0070c9;
+    @include font-weight(bold);
+    text-decoration: none;
+}
+
+figure {
+    @include margin(0px, 0px, 0px, 0px);
+}
+
+fieldset {
+    @include border(0px, null, null);
+}
+
+input[type=number] {
+    background-color: $light-grey;
+    @include border(1px, solid, $medium-yellow);
+    @include border-radius(25px);
+    @include padding(6px, 5px, 6px, 5px);
+    @include margin(0px, 10px, 0px, 0px);
+    @include width(70px, 100%);
+    @include text-align(center);
+    @include font-size(18px);
+}
+
+input[type=search] {
+    @extend input, [type=number];
+    @include width(400px, 100%);
+    @include padding(10px, 10px, 10px, 10px);
+}
+
+@media (min-width: 768px) {
+    .flex-row {
+        display: flex;
+    }
+}
+
