@@ -103,6 +103,18 @@ body {
             }
         }
     }
+
+    #cart-sidebar-footer {
+        background-color: white;
+        @include width (100%, 100%);
+        display: flex;
+        justify-content: center;
+
+        button {
+            @include width(80%, 80%);
+            @include margin(10px, 10px, 10px, 10px);
+        }
+    }
 }
 
 #page-header {
