@@ -1,119 +1,4 @@
-// Cross-browser compatibility
-
-// All functions
-
-@function calc-rem($size) {
-    $rem-size: $size / 16px;
-    @return $rem-size * 1rem;
-}
-  
-
-// All @mixins
-
-@mixin font-size($size) {
-    font-size: $size; // Fallback for IE
-    font-size: calc-rem($size);
-}
-
-@mixin text-align($value) {
-    text-align: $value;
-}
-
-@mixin font-weight($weight) {
-    font-weight: $weight;
-}
-
-@mixin width($width, $max-width) {
-    width: $width;
-    max-width: $max-width;
-}
-
-@mixin height($height, $max-height) {
-    height: $height;
-    max-height: $max-height;
-}
-
-@mixin margin($top, $right, $bottom, $left) {
-    margin: $top $right $bottom $left;
-}
-
-@mixin padding($top, $right, $bottom, $left) {
-    padding: $top $right $bottom $left;
-}
-
-@mixin border($width, $style, $color) {
-    border: $width $style $color;
-}
-
-@mixin border-radius($value) {
-    border-radius: $value;
-}
-
-// Grid System
-
-.container {
-    @include width(100%, 1200px);
-    @include padding(0px, 15px, 0px, 15px);
-    @include margin(0px, auto, 0px, auto);
-}
-
-.container-fluid {
-    @include width(100%, null);
-    @include padding(0px, 15px, 0px, 15px);
-    @include margin(0px, auto, 0px, auto);
-}
-
-.flex-row,
-.d-flex {
-    display: flex;
-}
-
-.flex-column {
-    flex-direction: column;
-}
-
-.flex-item {
-    flex: 1;
-    @include padding(10px, 10px, 10px, 10px);
-    @include margin(10px, 10px, 10px, 10px);
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.align-center {
-    align-items: center;
-}
-
-.space-between {
-    justify-content: space-between;
-}
-
-// Colors
-
-$medium-yellow: #fed700;
-$light-grey: #f9f9f9;
-$medium-grey: #555;
-
-.bg-white {
-    background-color: white;
-}
-
-.bg-black {
-    background-color: black;
-}
-
-.bg-light-grey {
-    background-color: $light-grey;
-}
-
-
-// Starting of the main code
-
-*, ::after, ::before {
-    box-sizing: border-box;
-}
+@import "general";
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -122,16 +7,6 @@ body {
     @include font-weight(normal);
     @include margin(0px, 0px, 0px, 0px);
     @include padding(0px, 0px, 0px, 0px);
-}
-
-a {
-    color: #0070c9;
-    @include font-weight(bold);
-    text-decoration: none;
-}
-
-figure {
-    @include margin(0px, 0px, 0px, 0px);
 }
 
 .btn-primary {
@@ -146,27 +21,6 @@ figure {
     @include padding(10px, 15px, 10px, 15px);
     @include border-radius(25px);
     @include border(0px, null, null);
-}
-
-input[type=number] {
-    background-color: $light-grey;
-    @include border(1px, solid, $medium-yellow);
-    @include border-radius(25px);
-    @include padding(0px, 5px, 0px, 5px);
-    @include margin(0px, 10px, 0px, 0px);
-    @include width(70px, 100%);
-    @include text-align(center);
-    @include font-size(18px);
-}
-
-input[type=search] {
-    background-color: $light-grey;
-    @include border(1px, solid, $medium-yellow);
-    @include border-radius(25px);
-    @include padding(10px, 10px, 10px, 10px);
-    @include margin(0px, 10px, 0px, 0px);
-    @include width(400px, 100%);
-    @include font-size(18px);
 }
 
 #cart-sidebar::-webkit-scrollbar {
@@ -253,6 +107,7 @@ input[type=search] {
 }
 
 #page-header {
+    display: none;
     background-color: white;
     @include padding(15px, 15px, 15px, 15px);
 
@@ -278,14 +133,17 @@ input[type=search] {
 
 #banner-section {
     background: url('../images/banner-carousel/samsung-galaxy-s20.png'), black;
+    background-size: 300px, cover;
     background-repeat: no-repeat;
     background-position: bottom right 15%;
     @include height(450px, null);
+    @include padding(10px, 10px, 10px, 10px);
 
     h1 {
         @include font-size(32px);
         @include font-weight(bold);
-        @include margin(auto, auto, 5px, auto);
+        @include padding(50px, 0px, 0px, 0px);
+        @include margin(0px, auto, 0px, auto);
         color: white;
     }
 
@@ -298,6 +156,16 @@ input[type=search] {
 }
 
 #featured-departments-section {
+
+    .flex-item {
+        display: block;
+        @include text-align(center);
+
+        figure {
+            @include margin(0px, 25px, 0px, 0px);
+        }
+    }
+
     background-color: white;
     @include padding(25px, 0px, 25px, 0px);
 
@@ -306,91 +174,158 @@ input[type=search] {
     }
 }
 
-// Código reutilizável compartilhado entre as seções #most-sold e #departments-nav
+.grid-item {
+    @include border(1px, solid, #a9a8a8);
+    @include padding(25px, 25px, 25px, 25px);
+    @include text-align(center);
 
-.grid-row {
-    display: grid;
-    grid-gap: 15px;
-    grid-template-areas:
-    "item-one item-two item-three"
-    "item-four item-five item-six";
+    .grid-item-img { 
+        @include padding(0px, 10px, 0px, 0px);
+        @include width(100%, 100%);
+    }
 
-    .grid-row:nth-child(1) { grid-area: item-one; }
-    .grid-row:nth-child(2) { grid-area: item-two; }
-    .grid-row:nth-child(3) { grid-area: item-three; }    
-    .grid-row:nth-child(4) { grid-area: item-four; }    
-    .grid-row:nth-child(5) { grid-area: item-five; }    
-    .grid-row:nth-child(6) { grid-area: item-six; }    
+    h3 {
+        @include margin(8px, 0px, 0px, 0px);
+        @include font-weight(bold);
+    }
 
-    .grid-item {
-        @include border(1px, solid, #a9a8a8);
-        @include padding(25px, 25px, 25px, 25px);
-        
-        display: grid;
-        grid-template-areas: 
-        "grid-item-img grid-item-info grid-item-info";
-    
-        .grid-item-img { 
-            grid-area: grid-item-img;
-            @include padding(0px, 10px, 0px, 0px);
-            @include width(100%, 100%);
-        }
-    
-        .grid-item-info { 
-            grid-area: grid-item-info;
-        }
-    
-        h3 {
-            @include margin(8px, 0px, 0px, 0px);
-            @include font-weight(bold);
-        }
-    
-        p {
-            @include margin(0px, 0px, 20px, 0px);
-        }
-    }    
-}
-
-// Fim código reutilizável
+    p {
+        @include margin(0px, 0px, 20px, 0px);
+    }
+}   
 
 #most-sold-section {
     background-color: white;
     @include padding(25px, 0px, 25px, 0px);
     @include margin(20px, 0px, 20px, 0px);
-}
 
-#notebooks-section {
-    @extend #most-sold-section ;
+    .flex-row {
+        justify-content: center; // for desktop when flex-row is flex
+        @include text-align(center); // for mobile when flex-row is block
+    }
 }
 
 #departments-nav nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
     a {
         @include font-weight(normal);
         @include padding(20px, 13px, 10px, 13px);
     }
 }
 
+#products-section {
+    background-color: white;
+    @include padding(25px, 0px, 25px, 0px);
+    @include margin(20px, 0px, 20px, 0px);
+}
+
 #newsletter-input-section {
-    @extend #most-sold-section ;
+    @include padding(25px, 0px, 25px, 0px);
+    @include margin(20px, 0px, 20px, 0px);
     background-color: $medium-yellow;
 
-    fieldset {
-        @include border(0px, null, null);
-    }
-
     input {
-        @include margin(0px, 10px, 0px, 0px);
-        @include padding(0px, 15px, 0px, 15px);
+        @include margin(5px, 10px, 10px, 5px);
+        @include padding(10px, 15px, 10px, 15px);
         @include font-size(16px);
         @include border-radius(25px);
         @include border(0px, null, null);
     }
 
     button {
-        @extend .btn-primary ;
         background-color: black;
         text-transform: uppercase;
     }
-
 }
 
+#newsletter-input-section {
+    .flex-row {
+        justify-content: center;
+        @include text-align(center);
+    }
+}
+
+footer {
+    .flex-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    } 
+}
+
+@media (min-width: 700px) {
+    #banner-section {
+        background-size: auto, cover;
+
+        h1 {
+            @include padding(70px, 0px, 0px, 0px);
+        }
+    }
+
+    .grid-row {
+        grid-template-areas:
+        "item-one item-two"
+        "item-three item-four"
+        "item-five item-six";
+
+        .grid-row:nth-child(1) { grid-area: item-one; }
+        .grid-row:nth-child(2) { grid-area: item-two; }
+        .grid-row:nth-child(3) { grid-area: item-three; }    
+        .grid-row:nth-child(4) { grid-area: item-four; }    
+        .grid-row:nth-child(5) { grid-area: item-five; }    
+        .grid-row:nth-child(6) { grid-area: item-six; }
+    }
+}
+
+@media (min-width: 992px) {
+
+    #banner-section {
+        display: flex;
+        align-items: center;
+
+        h1 {
+            @include padding(0px, 0px, 0px, 80px);
+        }
+
+        h2 {
+            @include padding(0px, 0px, 0px, 80px);
+        }
+
+        a {
+            @include margin(0px, 0px, 0px, 80px);
+        }
+    }
+
+    #featured-departments-section {
+        .flex-item {
+            display: flex;
+        }
+    }
+
+    #newsletter-input-section {
+        .input-group {
+            display: flex;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid-row {
+        grid-template-areas:
+        "item-one item-two item-three"
+        "item-four item-five item-six";
+
+        .grid-item {
+            @include text-align(left);
+            display: grid;
+            grid-template-areas:
+            "grid-item-img grid-item-info grid-item-info";
+
+            .grid-item-img { grid-area: grid-item-img; }
+            .grid-item-info { grid-area: grid-item-info; }
+        }
+    }
+}
