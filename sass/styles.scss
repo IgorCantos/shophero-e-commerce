@@ -37,7 +37,7 @@ body {
     right: 0;
     top: 0;
     background-color: white;
-    @include width(100%, 30%);
+    @include width(100%, 100%);
     @include height(100%, 100%);
     @include padding(10px, 5px, 10px, 5px);
     overflow: scroll;
@@ -87,7 +87,6 @@ body {
     }
 
     .cart-items-list {
-        @include padding(10px, 10px, 10px, 10px);
 
         .cart-item {
             display: flex;
@@ -107,7 +106,6 @@ body {
 }
 
 #page-header {
-    display: none;
     background-color: white;
     @include padding(15px, 15px, 15px, 15px);
 
@@ -115,6 +113,23 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .search-input-md {
+            display: none;
+        }
+
+        .search-input-xs {
+            display: block;
+        }
+
+        .cart-total-items {
+            display: none;
+        }
+
+        #cart-button {
+            display: flex;
+            align-items: center;
+        }
     }
 
     .wrapper > div {
@@ -257,6 +272,19 @@ footer {
 }
 
 @media (min-width: 700px) {
+
+    #page-header {
+        .wrapper {
+            input {
+                display: block;
+            }
+        }
+    }
+
+    #cart-sidebar {
+        @include width(100%, 50%);
+    }
+
     #banner-section {
         background-size: auto, cover;
 
@@ -281,6 +309,30 @@ footer {
 }
 
 @media (min-width: 992px) {
+
+    #page-header {
+        .wrapper {
+            .search-input-md {
+                display: block;
+            }
+
+            .search-input-xs {
+                display: none;
+            }
+
+            .cart-total-items {
+                display: block;
+            }
+        }
+    }
+
+    #cart-sidebar {
+        @include width(100%, 30%);
+
+        .cart-items-list {
+            @include padding(10px, 10px, 10px, 10px);
+        }
+    }
 
     #banner-section {
         display: flex;
