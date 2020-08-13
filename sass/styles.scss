@@ -77,7 +77,7 @@ body {
         @include text-align(center);
     }
 
-    .cart-sidebar-close {
+    .hide-cart-button {
         float: right;
         border: none;
         background-color: white;
@@ -138,7 +138,7 @@ body {
             display: none;
         }
 
-        #cart-button {
+        #show-cart-button {
             display: flex;
             align-items: center;
         }
@@ -149,7 +149,7 @@ body {
         align-items: center;
     }
 
-    #cart-button {
+    #show-cart-button {
         cursor: pointer;
     }
 
