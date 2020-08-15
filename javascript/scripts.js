@@ -1,5 +1,5 @@
 (function () {
-    let itemImage, itemName, itemStars, itemPrice, itemQuantity, cartItemTemplate;
+    let itemImage, itemName, itemStars, itemPrice, itemQuantity, cartItemTemplate, insertCartItem;
 
     function showHideCart() {
         const showCartBtn = document.querySelector("#show-cart-button");
@@ -49,12 +49,22 @@
                 </figure>
                 <h3>${itemPrice}</h3>
                 <input type="number" name="item_quantity" id="item_quantity" min="1" max="99" value="${itemQuantity}">
-                <a href="#" class="btn-primary">Excluir</a>
+                <a href="#" id="js-delete-item-btn" class="btn-primary">Excluir</a>
             </div>                   
         </div>
         `
-        const cartItems = document.querySelector(".cart-items-list");
-        cartItems.insertAdjacentHTML('afterbegin' , cartItemTemplate);
+        insertCartItem = document.querySelector(".cart-items-list");
+        insertCartItem.insertAdjacentHTML('afterbegin' , cartItemTemplate);
+
+        deleteCartItem();
+    }
+
+    function deleteCartItem() {
+        const deleteItemBtn = document.querySelector("#js-delete-item-btn");
+
+        deleteItemBtn.addEventListener('click', function() {
+            deleteItemBtn.parentNode.parentNode.remove();
+        });
     }
 
 })();
