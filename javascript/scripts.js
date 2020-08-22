@@ -35,14 +35,6 @@
         function addCartItem() {
             let cartItemTemplate, insertCartItem;
 
-            var itemsOnCart = []
-
-
-            itemsOnCart.push(itemName)
-            
-            console.log(itemsOnCart)
-
-
             cartItemTemplate = 
             `
             <div class="cart-item">
@@ -64,8 +56,15 @@
             </div>
             `
             insertCartItem = document.querySelector(".cart-items-list");
-            insertCartItem.insertAdjacentHTML('afterbegin', cartItemTemplate);
 
+            // Check if item already exists in the cart
+            if (insertCartItem.innerHTML.indexOf(itemName) != -1) {
+                alert('Este item já existe no seu carrinho.')
+                return;
+            } else {
+                insertCartItem.insertAdjacentHTML('afterbegin', cartItemTemplate);
+            }
+            
             updateCartTotal();
             deleteCartItem();
         };
@@ -85,22 +84,36 @@
             cartTotal = 0;
             allCartItems = document.querySelector(".cart-items-list").children;
 
-
-
             for (let i = 0; i < allCartItems.length; i++) {
                let cartItem, cartItemPrice;
 
                 cartItem = allCartItems[i];
 
                 cartItemPrice = cartItem.querySelector(".js-item-price").innerText;
-                cartItemPrice = parseFloat(cartItemPrice.replace(/[ ,.]/g,''));
+                cartItemPrice = getMoney(cartItemPrice);
+                formatMoney = formatReal(cartItemPrice)
+                toNumber = formatMoney;
                 cartItemQuantity = cartItem.querySelector(".js-item-quantity").value;
                 
-                cartTotal = cartTotal + (cartItemPrice * cartItemQuantity);
+                cartTotal = cartTotal + (toNumber * cartItemQuantity);
             }
 
-            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + cartTotal;
+            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + 'R$ ' + cartTotal;
         };
+
+        function getMoney(str) {
+            return parseInt(str.replace(/[\D]+/g,''));
+        }
+
+        function formatReal(int) {
+            var tmp = int + '';
+            tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+
+            if (tmp.length > 6) {
+                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+            }
+            return tmp;
+        }
 
         showHideCart();
         getItemInfo();
