@@ -1,7 +1,7 @@
 {
   "name": "shophero-e-commerce",
   "version": "1.0.0",
-  "description": "A junior e-commerce JavaScript project to improve skills",
+  "description": "Projeto pessoal e autoral de um e-commerce feito exlusivamente para aprender mais sobre HTML semântico, CSS Grid, Flexbox e JavaScript. Não utiliza nenhum framework.",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
