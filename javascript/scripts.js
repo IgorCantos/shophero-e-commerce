@@ -3,54 +3,63 @@
     document.addEventListener("DOMContentLoaded", init());
     
     function init() {
-        function showHideCart() {
+
+        function showCartSideBar() {
             const showCartBtn = document.querySelector("#show-cart-button");
-            const hideCartBtn = document.querySelector(".hide-cart-button");
-            
-            showCartBtn.addEventListener('click', function() {
+        
+            showCartBtn.addEventListener('click', () => {
                 document.querySelector('#cart-sidebar').style.display = 'block'; 
             });
-            
-            hideCartBtn.addEventListener('click', function() {
+        };
+        showCartSideBar();
+
+        function hideCartSideBar() {
+            const hideCartBtn = document.querySelector(".hide-cart-button");
+
+            hideCartBtn.addEventListener('click', () => {
                 document.querySelector('#cart-sidebar').style.display = 'none'; 
             });
         };
+        hideCartSideBar();
     
-        function getItemInfo() {
-            const addToCartBtn = document.querySelectorAll('.js-add-cart-btn');
+        function getProductInfo() {
+            const addProductToCartBtn = document.querySelectorAll('.js-add-cart-btn');
     
-            for (let i = 0; i < addToCartBtn.length; i++) {
-                addToCartBtn[i].addEventListener('click', function() {
-                    itemImage = addToCartBtn[i].parentNode.parentNode.querySelector(".js-item-image").getAttribute("src");
-                    itemName = addToCartBtn[i].parentNode.querySelector(".js-item-name").innerText;
-                    itemStars = addToCartBtn[i].parentNode.querySelector(".js-item-stars").getAttribute("src");
-                    itemPrice = addToCartBtn[i].parentNode.querySelector(".js-item-price").innerText;
-                    itemQuantity = addToCartBtn[i].parentNode.querySelector(".js-item-quantity").value;
+            for (let i = 0; i < addProductToCartBtn.length; i++) {
+                addProductToCartBtn[i].addEventListener('click', () => {
+                    productImage = addProductToCartBtn[i].parentNode.parentNode.querySelector(".js-item-image").getAttribute("src");
+                    productName = addProductToCartBtn[i].parentNode.querySelector(".js-item-name").innerText;
+                    productRatingStars = addProductToCartBtn[i].parentNode.querySelector(".js-item-stars").getAttribute("src");
+                    productPrice = addProductToCartBtn[i].parentNode.querySelector(".js-item-price").innerText;
+                    productQuantity = addProductToCartBtn[i].parentNode.querySelector(".js-item-quantity").value;
                     
-                    addCartItem();
+                    // Get the product info and adds it to an existing HTML model for properly display the product on the cart
+                    FormatProductInfo(productImage, productName, productRatingStars, productQuantity);
                 });
-            }
+            };
         };
+        getProductInfo();
     
-        function addCartItem() {
+        function FormatProductInfo(productImage, productName, productRatingStars, productQuantity) {
+
             let cartItemTemplate, insertCartItem;
 
             cartItemTemplate = 
             `
             <div class="cart-item">
                 <figure class="cart-item-img">
-                    <img src="${itemImage}" class="js-item-image" alt="Imagem da máquina de lavar">
+                    <img src="${productImage}" class="js-item-image" alt="Imagem da máquina de lavar">
                 </figure>
                 <div class="cart-item-info">
                     <a href="#" target="_blank" class="js-item-name">
-                        ${itemName}
+                        ${productName}
                     </a>
                     <figure>
-                        <img src="${itemStars}" class="js-item-stars" class="js-item-stars" alt="Esse produto possui avaliação de 5 estrelas">
+                        <img src="${productRatingStars}" class="js-item-stars" class="js-item-stars" alt="Esse produto possui avaliação de 5 estrelas">
                     </figure>
-                    <h3 class="js-item-price">${itemPrice}</h3>
+                    <h3 class="js-item-price">${productPrice}</h3>
                     <p>Em até 12x de R$ 489,92</p>
-                    <input type="number" class="js-item-quantity" name="item_quantity" min="1" max="99" value="${itemQuantity}">
+                    <input type="number" class="js-item-quantity" name="item_quantity" min="1" max="99" value="${productQuantity}">
                     <a href="#" id="js-delete-item-btn" class="btn-primary">Excluir</a>
                 </div>
             </div>
@@ -58,7 +67,7 @@
             insertCartItem = document.querySelector(".cart-items-list");
 
             // Checa se o item já existe no carrinho
-            if (insertCartItem.innerHTML.indexOf(itemName) != -1) {
+            if (insertCartItem.innerHTML.indexOf(productName) != -1) {
                 alert('Este item já existe no seu carrinho.')
                 return;
             } else {
@@ -66,10 +75,10 @@
             }
             
             updateCartTotal();
-            deleteCartItem();
+            deleteCartProduct();
         };
     
-        function deleteCartItem() {
+        function deleteCartProduct() {
             const deleteItemBtn = document.querySelector("#js-delete-item-btn");
     
             deleteItemBtn.addEventListener('click', function() {
@@ -85,19 +94,18 @@
             allCartItems = document.querySelector(".cart-items-list").children;
 
             for (let i = 0; i < allCartItems.length; i++) {
-               let cartItem, cartItemPrice;
+               let cartItem, cartproductPrice;
 
                 cartItem = allCartItems[i];
-                cartItemPrice = parseFloat(cartItem.querySelector(".js-item-price").innerText.replace("R$", "").replace(",", "").replace(".", ""));
-                cartItemQuantity = cartItem.querySelector(".js-item-quantity").value;
-                cartTotal += (cartItemPrice * cartItemQuantity);
+                cartproductPrice = parseFloat(cartItem.querySelector(".js-item-price").innerText.replace("R$", "").replace(",", "").replace(".", ""));
+                cartproductQuantity = cartItem.querySelector(".js-item-quantity").value;
+                cartTotal += (cartproductPrice * cartproductQuantity);
 
                 total = formatReal(cartTotal)
             }
 
-            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + total;
+            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + 'R$ ' + total;
         };
-
 
         // Transforma númeoro em moeda brasileira
         function formatReal( int ) {
@@ -126,8 +134,6 @@
             return (neg ? '-' + tmp : tmp);
         }
 
-        showHideCart();
-        getItemInfo();
     };
 
 })();
