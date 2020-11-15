@@ -3,6 +3,7 @@
     document.addEventListener("DOMContentLoaded", init());
     
     function init() {
+        "use strict"
 
         function showCartSideBar() {
             const showCartBtn = document.querySelector("#show-cart-button");
@@ -27,90 +28,95 @@
     
             for (let i = 0; i < addProductToCartBtn.length; i++) {
                 addProductToCartBtn[i].addEventListener('click', () => {
-                    productImage = addProductToCartBtn[i].parentNode.parentNode.querySelector(".js-item-image").getAttribute("src");
-                    productName = addProductToCartBtn[i].parentNode.querySelector(".js-item-name").innerText;
-                    productRatingStars = addProductToCartBtn[i].parentNode.querySelector(".js-item-stars").getAttribute("src");
-                    productPrice = addProductToCartBtn[i].parentNode.querySelector(".js-item-price").innerText;
-                    productQuantity = addProductToCartBtn[i].parentNode.querySelector(".js-item-quantity").value;
+
+                    let productImage = addProductToCartBtn[i].parentNode.parentNode.querySelector('.js-item-image').getAttribute('src'),
+                        productName = addProductToCartBtn[i].parentNode.querySelector(".js-item-name").innerText,
+                        productRatingStars = addProductToCartBtn[i].parentNode.querySelector(".js-item-stars").getAttribute("src"),
+                        productPrice = addProductToCartBtn[i].parentNode.querySelector(".js-item-price").innerText,
+                        productInstallment = addProductToCartBtn[i].parentNode.querySelector(".js-item-installment").innerText,
+                        productQuantity = addProductToCartBtn[i].parentNode.querySelector(".js-item-quantity").value;
                     
-                    // Get the product info and adds it to an existing HTML model for properly display the product on the cart
-                    FormatProductInfo(productImage, productName, productRatingStars, productQuantity);
+                    FormatProductInfo(productImage, productName, productRatingStars, productPrice, productInstallment, productQuantity);
                 });
             };
         };
         getProductInfo();
     
-        function FormatProductInfo(productImage, productName, productRatingStars, productQuantity) {
+        function FormatProductInfo(image, name, rating, price, installment, quantity) {
 
-            let cartItemTemplate, insertCartItem;
-
-            cartItemTemplate = 
-            `
-            <div class="cart-item">
-                <figure class="cart-item-img">
-                    <img src="${productImage}" class="js-item-image" alt="Imagem da máquina de lavar">
-                </figure>
-                <div class="cart-item-info">
-                    <a href="#" target="_blank" class="js-item-name">
-                        ${productName}
-                    </a>
-                    <figure>
-                        <img src="${productRatingStars}" class="js-item-stars" class="js-item-stars" alt="Esse produto possui avaliação de 5 estrelas">
+            let cartProduct = `
+                <div class="cart-item">
+                    <figure class="cart-item-img">
+                        <img src="${image}" class="js-cart-item-image" alt="${name}">
                     </figure>
-                    <h3 class="js-item-price">${productPrice}</h3>
-                    <p>Em até 12x de R$ 489,92</p>
-                    <input type="number" class="js-item-quantity" name="item_quantity" min="1" max="99" value="${productQuantity}">
-                    <a href="#" id="js-delete-item-btn" class="btn-primary">Excluir</a>
+                    <div class="cart-item-info">
+                        <a href="#" target="_blank" class="js-cart-item-name">
+                            ${name}
+                        </a>
+                        <figure>
+                            <img src="${rating}" class="js-cart-item-stars" alt="Esse produto possui avaliação de 5 estrelas">
+                        </figure>
+                        <h3 class="js-cart-item-price">${price}</h3>
+                        <p>${installment}</p>
+                        <input type="number" class="js-cart-item-quantity" name="item_quantity" min="1" max="99" value="${quantity}">
+                        <a href="#" id="js-cart-delete-item-btn" class="btn-primary">Excluir</a>
+                    </div>
                 </div>
-            </div>
             `
-            insertCartItem = document.querySelector(".cart-items-list");
-
-            // Checa se o item já existe no carrinho
-            if (insertCartItem.innerHTML.indexOf(productName) != -1) {
-                alert('Este item já existe no seu carrinho.')
-                return;
-            } else {
-                insertCartItem.insertAdjacentHTML('afterbegin', cartItemTemplate);
-            }
-            
+            checkRepeatedCartProducts(cartProduct)
             updateCartTotal();
             deleteCartProduct();
         };
+
+        function checkRepeatedCartProducts(product) {
+
+            const cartProductsList = document.querySelector(".cart-items-list");
+        
+            if (cartProductsList.innerHTML.indexOf(product) != -1) {
+                return alert('Este item já existe no seu carrinho.')
+            } else {
+                cartProductsList.insertAdjacentHTML('afterbegin', product);
+                return alert('Produto adicionado ao seu carrinho.')
+            }
+        };
     
         function deleteCartProduct() {
-            const deleteItemBtn = document.querySelector("#js-delete-item-btn");
+            const deleteProductBtn = document.querySelector("#js-cart-delete-item-btn");
     
-            deleteItemBtn.addEventListener('click', function() {
-                deleteItemBtn.parentNode.parentNode.remove();
+            deleteProductBtn.addEventListener('click', () => {
+                deleteProductBtn.parentNode.parentNode.remove();
                 updateCartTotal();
             });
         };
 
         function updateCartTotal() {
-            let allCartItems, cartTotal;
-            
-            cartTotal = 0;
-            allCartItems = document.querySelector(".cart-items-list").children;
 
-            for (let i = 0; i < allCartItems.length; i++) {
-               let cartItem, cartproductPrice;
+            let allProductsOnCart = document.querySelector(".cart-items-list").children,
+                allCartProductsPrice = 0,
+                cartTotal = 0;
 
-                cartItem = allCartItems[i];
-                cartproductPrice = parseFloat(cartItem.querySelector(".js-item-price").innerText.replace("R$", "").replace(",", "").replace(".", ""));
-                cartproductQuantity = cartItem.querySelector(".js-item-quantity").value;
-                cartTotal += (cartproductPrice * cartproductQuantity);
+            for (let i = 0; i < allProductsOnCart.length; i++) {
 
-                total = formatReal(cartTotal)
+                let cartProduct = allProductsOnCart[i],
+                    cartProductPrice = 0,
+                    cartProductQuantity = 0;
+
+                cartProductPrice = parseFloat(cartProduct.querySelector(".js-cart-item-price").innerText.replace("R$", "").replace(",", "").replace(".", ""));
+                cartProductQuantity = cartProduct.querySelector(".js-cart-item-quantity").value;
+                allCartProductsPrice += (cartProductPrice * cartProductQuantity);
+
+                cartTotal = formatReal(allCartProductsPrice)
             }
 
-            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + 'R$ ' + total;
+            document.querySelector('#cart-total').innerHTML = '<strong>Total</strong>: ' + 'R$ ' + cartTotal;
         };
 
-        // Transforma númeoro em moeda brasileira
-        function formatReal( int ) {
-            var tmp = int + '';
-            var neg = false;
+        // Author: Rodrigo Rodrigues
+        // URL: https://pt.stackoverflow.com/a/198981
+
+        function formatReal(int) {
+            let tmp = int + '';
+            let neg = false;
             if (tmp.indexOf("-") == 0) {
                 neg = true;
                 tmp = tmp.replace("-","");
@@ -132,7 +138,7 @@
             if(tmp.indexOf(",") == 0) tmp = tmp.replace(",","0,");
 
             return (neg ? '-' + tmp : tmp);
-        }
+        };
 
     };
 

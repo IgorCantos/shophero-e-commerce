@@ -29,7 +29,7 @@ Pendente
 
 # Como rodar?
 
-1. Clonar esse repositório
+1. Clonar este repositório
 2. Abrir o arquivo 'index.html'
 
 # Como editar o CSS?
@@ -37,4 +37,4 @@ Pendente
 1. Ter o [Sass](https://sass-lang.com/install) instalado em sua máquina
 2. Entrar no diretorio do projeto através de algum console (Node, windows, etc.)
 3. Rodar o comando "sass --watch sass/styles.scss:css/styles.css --style compressed"
-4. Agora é só editar o arquivo "styles.scss" e ao salvar as alterações surgiram efeito na página.
+4. Agora é só editar o arquivo "styles.scss" e ao salvar as alterações surgirão efeito na página.
