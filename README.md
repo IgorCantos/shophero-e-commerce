@@ -13,12 +13,11 @@ Projeto pessoal e autoral de um e-commerce feito exlusivamente para aprender mai
 
 <br />
 
-# Screenshots web
-Pendente
-
+# Web
+- [Clique aqui para acessar](http://127.0.0.1:5500/index.html#)
 
 # Screenshots mobile
-
+'
 Pendente
 
 # O que foi aprendido?

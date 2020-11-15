@@ -58,20 +58,20 @@
                         </figure>
                         <h3 class="js-cart-item-price">${price}</h3>
                         <p>${installment}</p>
-                        <input type="number" class="js-cart-item-quantity" name="item_quantity" min="1" max="99" value="${quantity}">
+                        <input type="number" class="js-cart-item-quantity" name="item_quantity" min="1" max="99" value="${quantity}" disabled="">
                         <a href="#" id="js-cart-delete-item-btn" class="btn-primary">Excluir</a>
                     </div>
                 </div>
             `
-            checkRepeatedCartProducts(cartProduct)
+            addProductToCart(cartProduct)
             updateCartTotal();
             deleteCartProduct();
         };
 
-        function checkRepeatedCartProducts(product) {
-
+        function addProductToCart(product) {
             const cartProductsList = document.querySelector(".cart-items-list");
         
+            // Check if product already exists on cart. If not, than add.
             if (cartProductsList.innerHTML.indexOf(product) != -1) {
                 return alert('Este item já existe no seu carrinho.')
             } else {
