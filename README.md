@@ -13,6 +13,17 @@ Projeto pessoal e autoral de um e-commerce feito exlusivamente para aprender mai
 
 <br />
 
+# Quais conhecimentos adquiri/aprimorei terminando este projeto?
+- CSS Grid e Flex Box para construção de grid (aprimorado)
+- Sass para estilização (aprendido)
+- JS manipulação da DOM (aprimorado)
+- JS Loops (aprimorado)
+- JS beneficios do "use strict" (aprendido)
+- JS escopo de função e escopo global (aprimorado)
+- JS quebrar funções grandes em funções menores com menos responsabilidades (se possível somente 1) (aprimorado)
+- JS beneficios da IIFE (aprendido)
+- JS lógica de programação (aprimorada)
+
 # Site
 - [Clique aqui para acessar](https://shophero-e-commerce.vercel.app/)
 
